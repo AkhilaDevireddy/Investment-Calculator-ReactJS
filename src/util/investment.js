@@ -12,6 +12,7 @@ export function calculateInvestmentResults({
 }) {
   const annualData = [];
   let investmentValue = initialInvestment;
+  // console.log(duration);
 
   for (let i = 0; i < duration; i++) {
     const interestEarnedInYear = investmentValue * (expectedReturn / 100);
@@ -22,6 +23,7 @@ export function calculateInvestmentResults({
       valueEndOfYear: investmentValue, // investment value at end of year
       annualInvestment: annualInvestment, // investment added in this year
     });
+    // console.log(interestEarnedInYear);
   }
 
   return annualData;
@@ -32,7 +34,7 @@ export function calculateInvestmentResults({
 // Example Usage: formatter.format(1000) => yields "$1,000"
 export const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
-  currency: 'USD',
+  currency: 'INR',
   minimumFractionDigits: 0,
   maximumFractionDigits: 0,
 });
