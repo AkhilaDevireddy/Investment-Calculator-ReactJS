@@ -1,5 +1,5 @@
 import { calculateInvestmentResults, formatter } from './util/investment'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -9,25 +9,28 @@ function App() {
   const [ annualInvestment, setAnnualInvestment ] = useState(1200);
   const [ expectedReturn, setExpectedReturn ] = useState(6);
   const [ duration, setDuration ] = useState(10);
+  // const [ calcValues, setCalcValues ] = useState();
   const [ calcValues, setCalcValues ] = useState(calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }));
+  useEffect(() => 
+    setCalcValues(() => 
+      calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration })
+    ), 
+    [initialInvestment, annualInvestment, expectedReturn, duration]);
   let prevInvestedCapital = initialInvestment;
   function handleChangeInitialInvestment(e) {
     setInitialInvestment(Number(e.target.value));
-    setCalcValues(calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }));
   }
   function handleChangeAnnualInvestment(e) {
     setAnnualInvestment(Number(e.target.value));
-    setCalcValues(calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }));
   }
   function handleChangeExpectedReturn(e) {
     setExpectedReturn(Number(e.target.value));
-    setCalcValues(calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }));
   }
   function handleChangeDuration(e) {
     setDuration(Number(e.target.value));
-    setCalcValues(calculateInvestmentResults({ initialInvestment, annualInvestment, expectedReturn, duration }));
   }
-  // console.log(initialInvestment, annualInvestment, expectedReturn, duration);
+  console.log(initialInvestment, annualInvestment, expectedReturn, duration, prevInvestedCapital);
+  console.log(calcValues);
   return (
     <>
       <div id="header">
